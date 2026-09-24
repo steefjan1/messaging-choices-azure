@@ -1,0 +1,12 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+
+    "ServiceBus__fullyQualifiedNamespace": "sb-<token>.servicebus.windows.net",
+    "EventHubs__fullyQualifiedNamespace": "evhns-<token>.servicebus.windows.net",
+    "WorkStorage__blobServiceUri": "https://stwork<token>.blob.core.windows.net",
+    "WorkStorage__queueServiceUri": "https://stwork<token>.queue.core.windows.net"
+  }
+}

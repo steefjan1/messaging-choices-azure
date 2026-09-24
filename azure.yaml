@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+name: messaging-choices-azure
+metadata:
+  template: messaging-choices-azure@1.0.0
+services:
+  orderflow:
+    project: src/OrderFlow
+    language: dotnet
+    host: function
+hooks:
+  # The Event Grid subscription pushes to a webhook on the function, which only
+  # exists after the code is deployed. So it's created here, not in main.bicep.
+  postdeploy:
+    windows:
+      shell: pwsh
+      run: ./scripts/postdeploy.ps1
+      interactive: false
+      continueOnError: false
+    posix:
+      shell: sh
+      run: pwsh ./scripts/postdeploy.ps1
+      interactive: false
+      continueOnError: false
