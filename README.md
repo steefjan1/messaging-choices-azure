@@ -10,8 +10,6 @@ One e-commerce order flow that uses all five Azure messaging options, each for t
 | Background work | **Storage queue** | `image-jobs` → `ImageWorker`, poison queue after 3 dequeues |
 | Event series | **Event Hubs** | van telemetry, 4 partitions, two consumer groups |
 
-Companion to the Cloud Perspectives post **"Messages, Events or Streams: Choosing Azure Messaging by What You Send"** ([`blog-azure-messaging-what-you-send.md`](blog-azure-messaging-what-you-send.md)).
-
 ![Decision diagram](images/messaging-decision.png)
 
 ![Order flow](images/messaging-order-flow.png)
