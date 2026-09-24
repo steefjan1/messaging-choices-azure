@@ -98,7 +98,13 @@ azd down --purge
 
 ## Status
 
-Deployed with `azd up` to Sweden Central (September 2026). The build, provisioning, code deployment and postdeploy hook (Event Grid subscription and the `fraud-review` rule clean-up) all succeed. `bicep build` passes, with one known BCP334 warning on the storage account name. The end-to-end demo results are still to be added.
+Deployed with `azd up` to Sweden Central (September 2026). The build, provisioning, code deployment and postdeploy hook (Event Grid subscription and the `fraud-review` rule clean-up) all succeed. `bicep build` passes, with one known BCP334 warning on the storage account name. `scripts/demo.ps1` ran end to end. `GET /api/deadletters` returned:
+
+- `orders/payment` dead-letter queue: the zero-total order (`InvalidTotal`, delivery count 0) and the `poison` order (`MaxDeliveryCountExceeded` after 3 deliveries)
+- `shipments` dead-letter queue: empty
+- `image-jobs-poison`: `corrupt-*.png`, with no reason attached and the dequeue count reset to 0
+
+That last line is the asymmetry the sample is built to show: Service Bus keeps the reason and the delivery history for every dead letter, while the Storage poison queue keeps neither.
 
 If `azd up` fails with *"The 'location' property must be specified"*, `AZURE_LOCATION` isn't set in the azd environment: run `azd env set AZURE_LOCATION swedencentral`. In that case azd may also report *"package output ... is empty"*. That error is a side effect: packaging runs alongside provisioning and gets cancelled when provisioning fails.
 
